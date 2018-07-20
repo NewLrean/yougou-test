@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="yougou.shopping.mapper.TbItemParamMapper" >
+    <select id="queryItemCatParamById" resultType="yougou.shopping.pojo.TbItemParam">
+        SELECT * FROM tb_item_param where itemCatId = #{id}
+    </select>
+
+    <insert id="saveItemParamCat">
+        insert into tb_item_param (itemCatId,paramData,created,updated)
+        value (#{itemCatId},#{paramData},#{created},#{updated});
+    </insert>
+
+    <delete id="deleteParams" >
+        DELETE from tb_item_param where
+        <if test="list !=null and list.size()>0">
+            id IN
+            <foreach collection="list" open="(" close=")" separator="," item="type">
+                #{type}
+            </foreach>
+        </if>
+    </delete>
+    
+    <select id="selectParamById" parameterType="java.lang.Long" resultType="yougou.shopping.pojo.TbItemParam">
+        select * from tb_item_param WHERE id=#{paramid};
+    </select>
+</mapper>
